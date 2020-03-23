@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "BigQuery Easy",
+  "version": "3.0",
+  "description": "BigQuery but better 🚀",
+  "browser_action": {
+      "default_icon": "images/icon.png",
+      "default_title": "BigQEasy"
+  },
+  "icons": {
+      "16": "images/icon_16.png",
+      "48": "images/icon_48.png",
+      "128": "images/icon_128.png"
+  },
+   "content_scripts": [ {
+    "js": [ "scripts/jquery_3_3_1.js", "scripts/utils.js", "scripts/popup.js", "scripts/inject.js"],
+    "css": ["css/main.css"],
+     "matches": [ "https://console.cloud.google.com/bigquery*"]
+  }],
+  "web_accessible_resources": [
+    "scripts/jquery_3_3_1.js",
+    "scripts/utils.js",
+    "scripts/inject.js"
+   ],
+  "author": "Anthony Fernandez - marshallino16",
+  "background": {
+    "scripts": ["scripts/background.js"],
+    "persistent": true
+  },
+  "permissions": [
+    "webRequest",
+    "<all_urls>",
+    "activeTab",
+    "storage",
+    "tabs",
+    "background"
+  ]
+  
+}
