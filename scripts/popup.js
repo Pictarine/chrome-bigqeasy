@@ -36,27 +36,28 @@ function init_environment() {
 
 
         // Add a "Copy Temp table" button
-        // ID: query-temp-table
         // ------------------------------
 
-        waitForEl("pan-action-bar-button[ng-click='ctrl.openSaveResultsModal()']", function () {
-            let template = document.createElement('template');
-            template.innerHTML = '<pan-action-bar-button role="button"> <div class="p6n-action-bar-button-container"> <button class="p6n-material-button p6n-action-bar-button md-primary md-button md-ink-ripple" type="button"> <div class="p6n-action-bar-button-background" style="background-color: rgb(59, 120, 231);"> </div> <span>Query Temp Table</span> <div class="md-ripple-container" style=""></div> </button> </div> </pan-action-bar-button>';
-            let queryTempButton = template.content.firstChild
+        let template = document.createElement('template');
+        template.innerHTML = '<pan-action-bar-button role="button"> <div class="p6n-action-bar-button-container"> <button class="p6n-material-button p6n-action-bar-button md-primary md-button md-ink-ripple" type="button"> <div class="p6n-action-bar-button-background" style="background-color: rgb(59, 120, 231);"> </div> <span>Query Temp Table</span> <div class="md-ripple-container" style=""></div> </button> </div> </pan-action-bar-button>';
+        let queryTempButton = template.content.firstChild
+        queryTempButton.onclick = function () {
+            console.log("clicked!!")
 
-            document.querySelector("pan-action-bar-button[ng-click='ctrl.openSaveResultsModal()']").parentNode.appendChild(queryTempButton);
+            chrome.runtime.sendMessage({askToOpenTempTable: true}, function (response) {
+                console.log("click response!!", response)
+            });
+
+            simulateMouseClick(document.querySelector("a[ng-click='ctrl.goToAsset(ctrl.job.config.destinationTable)']"));
+        }
 
 
-            queryTempButton.onclick = function () {
-                console.log("clicked!!")
-
-                chrome.runtime.sendMessage({askToOpenTempTable: true}, function (response) {
-                    console.log("click response!!", response)
-                });
-
-                simulateMouseClick(document.querySelector("a[ng-click='ctrl.goToAsset(ctrl.job.config.destinationTable)']"));
+        $("body").on('DOMSubtreeModified', "pan-action-bar-container[container-id='secondary-panel-bar']", function (e) {
+            let saveButton = document.querySelector("pan-action-bar-button[ng-click='ctrl.openSaveResultsModal()']")
+            if (saveButton && !saveButton.parentNode.contains(queryTempButton)) {
+                saveButton.parentNode.appendChild(queryTempButton);
             }
-        });
+        })
 
 
         // Display query validation indicator
