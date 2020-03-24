@@ -29,10 +29,9 @@
   },
   "permissions": [
     "webRequest",
-    "<all_urls>",
-    "activeTab",
+    "https://console.cloud.google.com/bigquery*",
+    "https://clients6.google.com/bigquery*",
     "storage",
-    "tabs",
     "background"
   ]
   
