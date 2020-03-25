@@ -24,12 +24,17 @@ function simulateMouseClick(targetNode) {
     });
 }
 
-let waitForEl = function (selector, callback) {
+let waitForEl = function (selector, callback, recursion_index) {
+    recursion_index = typeof recursion_index !== 'undefined' ? recursion_index : 1;
     if (jQuery(selector).length) {
         callback();
     } else {
-        setTimeout(function () {
-            waitForEl(selector, callback);
-        }, 100);
+        if (recursion_index > 15) {
+            console.log(`Select never appeared: ${selector}`)
+        } else {
+            setTimeout(function () {
+                waitForEl(selector, callback, recursion_index + 1);
+            }, 100 * recursion_index);
+        }
     }
 };
