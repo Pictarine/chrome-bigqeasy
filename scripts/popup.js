@@ -97,31 +97,41 @@ function init_environment() {
         // Display price for the query
         // ---------------------------
 
+        // Old Big Query UI
         $("body").on('DOMSubtreeModified', "div.p6n-bq-validation-success-color > div", function (e) {
-            if (e.target.innerText && e.target.innerHTML.indexOf('This query will process') >= 0) {
-                let state = e.target.innerText;
-                let regex = /^This query will process (.*) when run.$/gm;
-                let size = unhumanize(regex.exec(state)[1]);
-                let price = (5 * size / 1099511627776);
+            updateRunButton(e, "jfk-button[instrumentation-id='bq-run-query-button'] > span.p6n-loading-button-regular-text");
+        });
 
-                // console.log(state);
-                // console.log(size);
-                // console.log(price);
-
-                let buttonRun = $("jfk-button[instrumentation-id='bq-run-query-button'] > span.p6n-loading-button-regular-text");
-
-                if (price > 0.6) {
-                    buttonRun.html("⚠️ RUN FOR $" + price.toFixed(2) + " ⚠️");
-                } else if (price > 0.05) {
-                    buttonRun.html("RUN FOR $" + price.toFixed(2) + " ");
-                } else {
-                    buttonRun.html("RUN QUERY");
-                }
-
-            }
+        // New Big Query UI
+        $("body").on('DOMSubtreeModified', "query-validation-status .cfc-truncated-text", function (e) {
+            updateRunButton(e, "ace-progress-button .mat-button-wrapper");
         });
 
     });
+}
+
+function updateRunButton(e, cssPath) {
+    if (e.target.innerText && e.target.innerHTML.indexOf('This query will process') >= 0) {
+        let state = e.target.innerText;
+        let regex = /^This query will process (.*) when run.$/gm;
+        let size = unhumanize(regex.exec(state)[1]);
+        let price = (5 * size / 1099511627776);
+
+        // console.log(state);
+        // console.log(size);
+        // console.log(price);
+
+        let buttonRun = $(cssPath);
+
+        if (price > 0.6) {
+            buttonRun.html("⚠️ RUN FOR $" + price.toFixed(2) + " ⚠️");
+        } else if (price > 0.05) {
+            buttonRun.html("RUN FOR $" + price.toFixed(2) + " ");
+        } else {
+            buttonRun.html("RUN QUERY");
+        }
+
+    }
 }
 
 function inject_js(filename) {
