@@ -113,7 +113,7 @@ function init_environment() {
 function updateRunButton(e, cssPath) {
     if (e.target.innerText && e.target.innerHTML.indexOf('This query will process') >= 0) {
         let state = e.target.innerText;
-        let regex = /^This query will process (.*) when run.$/gm;
+        let regex = /^This .* will process (.*) when run.$/gm;
         let size = unhumanize(regex.exec(state)[1]);
         let price = (5 * size / 1099511627776);
 
