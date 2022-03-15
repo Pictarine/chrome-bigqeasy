@@ -1,12 +1,8 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "BigQuery Easy",
-  "version": "3.0.3",
+  "version": "4.0.0",
   "description": "BigQuery but better 🚀",
-  "browser_action": {
-      "default_icon": "images/icon.png",
-      "default_title": "BigQEasy"
-  },
   "icons": {
       "16": "images/icon_16.png",
       "48": "images/icon_48.png",
@@ -15,24 +11,26 @@
    "content_scripts": [ {
     "js": [ "scripts/jquery_3_3_1.js", "scripts/utils.js", "scripts/popup.js", "scripts/inject.js"],
     "css": ["css/main.css"],
-     "matches": [ "https://console.cloud.google.com/bigquery*"]
+     "matches": [ "https://console.cloud.google.com/*"]
   }],
   "web_accessible_resources": [
-    "scripts/jquery_3_3_1.js",
-    "scripts/utils.js",
-    "scripts/inject.js"
-   ],
+    {
+      "resources": [ "scripts/jquery_3_3_1.js", "scripts/utils.js", "scripts/inject.js" ],
+      "matches": [ "https://console.cloud.google.com/*" ]
+    }
+  ],
   "author": "Anthony Fernandez - marshallino16",
   "background": {
-    "scripts": ["scripts/background.js"],
-    "persistent": true
+    "service_worker": "scripts/background.js"
   },
   "permissions": [
     "webRequest",
-    "https://console.cloud.google.com/bigquery*",
-    "https://clients6.google.com/bigquery*",
     "storage",
     "background"
+  ],
+  "host_permissions": [
+    "https://console.cloud.google.com/*",
+    "https://clients6.google.com/*"
   ]
   
 }

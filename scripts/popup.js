@@ -104,7 +104,7 @@ function init_environment() {
 
         // New Big Query UI
         $("body").on('DOMSubtreeModified', "query-validation-status .cfc-truncated-text", function (e) {
-            updateRunButton(e, "ace-progress-button .mat-button-wrapper");
+            updateRunButton(e, "cfc-progress-button .mat-button-wrapper");
         });
 
     });
@@ -115,6 +115,7 @@ function updateRunButton(e, cssPath) {
         let state = e.target.innerText;
         let regex = /^This query will process (.*) when run.$/gm;
         let size = unhumanize(regex.exec(state)[1]);
+        console.log('size', size);
         let price = (5 * size / 1099511627776);
 
         // console.log(state);
@@ -137,7 +138,7 @@ function updateRunButton(e, cssPath) {
 function inject_js(filename) {
     console.log('Inject Pictarine Functions');
     let s = document.createElement('script');
-    s.src = chrome.extension.getURL('scripts/' + filename);
+    s.src = chrome.runtime.getURL('scripts/' + filename);
     s.onload = function () {
         this.remove();
     };
@@ -145,6 +146,7 @@ function inject_js(filename) {
 }
 
 
+//importScripts('scripts/jquery_3_3_1.js');
 inject_js('inject.js');
 add_click_capability();
 init_environment();
