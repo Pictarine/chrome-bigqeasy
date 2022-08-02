@@ -104,7 +104,7 @@ function init_environment() {
 
         // New Big Query UI
         $("body").on('DOMSubtreeModified', "query-validation-status .cfc-truncated-text", function (e) {
-            updateRunButton(e, "cfc-progress-button .mat-button-wrapper");
+            updateRunButton(e, ".cfc-progress-button-resolved .cm-button");
         });
 
     });
