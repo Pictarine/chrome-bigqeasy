@@ -25,7 +25,6 @@
   },
   "permissions": [
     "webRequest",
-    "storage",
     "background"
   ],
   "host_permissions": [
