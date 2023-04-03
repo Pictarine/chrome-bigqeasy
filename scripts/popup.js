@@ -116,7 +116,7 @@ function updateRunButton(e, cssPath) {
         let regex = /^This query will process (.*) when run.$/gm;
         let size = unhumanize(regex.exec(state)[1]);
         console.log('size', size);
-        let price = (5 * size / 1099511627776);
+        let price = (6.25 * size / 1099511627776);
 
         // console.log(state);
         // console.log(size);

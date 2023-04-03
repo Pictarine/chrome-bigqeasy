@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BigQuery Easy",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "BigQuery but better 🚀",
   "icons": {
       "16": "images/icon_16.png",
