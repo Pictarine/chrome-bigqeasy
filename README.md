@@ -1,8 +1,3 @@
-### Version 3.0
+Due to privacy needs we forked this project : https://github.com/carmignanivittorio/BigQuery-Cost-Estimator/
 
-* Inject jQuery
-* Add project tables expand by default
-* Add command + click capability to open Order Details
-* Add control + enter to run query (changed to command + enter in the new biguqery web interface)
-* Add query price display 
-* Add query validation indicator
+Thank you carmignanivittorio
