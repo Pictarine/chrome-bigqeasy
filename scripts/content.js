@@ -36,7 +36,7 @@ if (!window.bqCostObserverInitiated) {
     }
 
     function processAndUpdateText(node) {
-        const regex = /This query will process ([\d.,]+) ([KBGM]B) when run\./;
+        const regex = /This query will process ([\d.,]+) ([KBGMT]B) when run\./;
         const match = node.nodeValue.match(regex);
         if (match) {
             const size = parseFloat(match[1].replace(',', ''));
